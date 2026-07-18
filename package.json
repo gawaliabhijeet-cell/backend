@@ -1,0 +1,16 @@
+{
+  "name": "back",
+  "version": "1.0.0",
+  "description": "",
+  "keywords": [
+    "javascript",
+    "backend"
+  ],
+  "license": "ISC",
+  "author": "Abhijeet Gawali",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "javascript, backend"
+  }
+}
