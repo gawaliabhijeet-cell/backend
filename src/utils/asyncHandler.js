@@ -12,7 +12,7 @@ const asyncHandler = (requestHandler) => {
 export {asyncHandler}
 
 
-// reaper function 1st method
+// wrapper function 1st method
 // const asyncHandler = (fn) => async(req, res, next) => {
 //     try{
 //         await fn(req,res,next)
