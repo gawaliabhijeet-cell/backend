@@ -5,10 +5,17 @@ const storage = multer.diskStorage({
     cb(null, './public/temp')
   },
   filename: function (req, file, cb) {
-    cb(null, file.originalname)
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
+    cb(null, file.originalname + '-' + uniqueSuffix)
   }
 })
-
-export const upload = multer({ 
+  
+  export const upload = multer({ 
     storage,
- })
+  })
+  
+  
+  /*
+ cd means callback function. 
+ middleware means zanese phila muze ake milo.
+ */
