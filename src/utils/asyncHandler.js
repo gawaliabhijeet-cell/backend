@@ -9,7 +9,7 @@ const asyncHandler = (requestHandler) => {
 
 
 
-export {asyncHandler}
+export default asyncHandler
 
 
 // wrapper function 1st method

@@ -22,10 +22,6 @@ connectDB()
 
 
 
- 
-
-
-
 /*  
   first approch
 ()() => efi
