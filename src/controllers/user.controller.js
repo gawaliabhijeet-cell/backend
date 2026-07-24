@@ -3,18 +3,19 @@ import { ApiError } from "../utils/ApiError.js";
 import { User } from "../models/user.model.js";
 import uploadOnCloudinary from "../utils/cloudinary.js";
 import ApiResponse from "../utils/ApiResponce.js";
-import { upload } from "../middlewares/multer.js";
+import jwt from "jsonwebtoken"
 
-const generateAccessAndRefershTokens = async (userId) => {
+
+const generateAccessAndRefreshTokens = async (userId) => {
   const user = await User.findById(userId);
   const accessToken = user.generateAccessToken();
-  const refrechToken = user.generateRefreshToken();
+  const refreshToken = user.generateRefreshToken();
 
   // user bar bar login na kearn padhe
-  user.refrechToken = refrechToken;
+  user.refreshToken = refreshToken;
   await user.save({ validateBeforeSave: false });
 
-  return { accessToken, refrechToken };
+  return { accessToken, refreshToken };
 };
 
 const registerUser = asyncHandler(async (req, res) => {
@@ -31,7 +32,7 @@ const registerUser = asyncHandler(async (req, res) => {
 
 
   //   console.log("email", email);
-  // console.log("Body:", req.body);
+  console.log("Body:", req.body);
   //  console.log("Files:", req.files);
 
 
@@ -94,6 +95,7 @@ const registerUser = asyncHandler(async (req, res) => {
 });
 
 const loginUser = asyncHandler(async (req, res ) => {
+
   // req body => data
   // username or email
   // find the user
@@ -101,9 +103,9 @@ const loginUser = asyncHandler(async (req, res ) => {
   // access and referesh token
   // send cookie
 
-  const {email, ucookiesername, password } = req.body
+  const {email, username, password } = req.body
 
-  if(!username || !email) {
+  if(!username && !email) {
     throw new ApiError(400 , "username or emaail is required")
 
   }
@@ -122,8 +124,8 @@ const loginUser = asyncHandler(async (req, res ) => {
     throw new ApiError(401, "Invalid user credentials")
    }
 
-   const {accessToken , refrechToken } = await 
-   generateAccessAndRefershTokens(user._id)
+     const { accessToken, refreshToken } = 
+     await generateAccessAndRefreshTokens(user._id);
 
    const loggedInUser = await User.findById(user._id).
    select("-password -refreshToken")
@@ -135,11 +137,11 @@ const loginUser = asyncHandler(async (req, res ) => {
    }
 
    return res.status(200).cookie("accessToken", accessToken, options)
-   .cookie("refreshToken" , refrechToken ,options)
+   .cookie("refreshToken" , refreshToken ,options)
    .json(
     new ApiResponse(
       200, {
-        user: loggedInUser, accessToken, refrechToken
+        user: loggedInUser, accessToken, refreshToken
       },
       "User logged in successfully"
     )
