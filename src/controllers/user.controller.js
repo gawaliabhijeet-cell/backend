@@ -33,7 +33,7 @@ const registerUser = asyncHandler(async (req, res) => {
 
 
   //   console.log("email", email);
-  console.log("Body:", req.body);
+  // console.log("Body:", req.body);
   //  console.log("Files:", req.files);
 
 
@@ -154,7 +154,7 @@ const logoutUser = asyncHandler(async (req, res) => {
         req.user._id,
         {
           $set: {
-            refreshToken: undefined
+            refreshToken: 1 // this removes the filed from document
           }
         },
 
