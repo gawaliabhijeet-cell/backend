@@ -419,14 +419,12 @@ You can test all endpoints using:
 ---
 
 # ⭐ Support
-
 If you found this project useful:
-
 * ⭐ Star the repository
 * 🍴 Fork the project
 * 🛠 Contribute with pull requests
 
-Happy Coding! 🚀
+
 
 
 
